@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stark Industries | Project Core</title>
+    <title>Stark Core Project</title>
     <style>
         * {
             margin: 0;
@@ -16,14 +16,13 @@
             height: 100%;
             background-color: #000;
             overflow: hidden;
-            font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Step 1: High-Tech Background Video */
-        .bg-video {
+        /* Video Background */
+        .hud-bg-video {
             position: absolute;
             top: 0;
             left: 0;
@@ -31,37 +30,19 @@
             height: 100%;
             object-fit: cover;
             z-index: 1;
-            opacity: 0.6; /* Video ko halka dark rakha taaki button clear nazar aaye */
             pointer-events: none;
         }
 
-        /* Overlay grid lines for advanced computer screen effect */
-        .hud-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 6px 100%;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Step 2: Center Arc Reactor Button Container */
-        .core-container {
+        /* Center Button Container */
+        .main-interface-container {
             position: relative;
-            z-index: 3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            z-index: 2;
         }
 
-        /* Glowing Center Arc Reactor Button */
-        .arc-reactor-btn {
-            width: 280px;
-            height: 280px;
+        /* Clickable Center Arc Reactor Button */
+        .arc-reactor-trigger {
+            width: 320px;
+            height: 320px;
             background-image: url('From KlickPin CF Save these 13 Chic holiday table setting ideas that are perfect when you want something stylish modern and easy to copy for beginners who want - Pin-1004091679423345837.jpg');
             background-size: contain;
             background-position: center;
@@ -71,80 +52,52 @@
             background-color: transparent;
             cursor: pointer;
             outline: none;
-            position: relative;
             
-            /* Breathing Glow Animation */
-            animation: reactor-pulse 3s infinite ease-in-out;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s;
+            /* Clean breathing neon glow animation */
+            animation: corePulse 3s infinite ease-in-out;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Hover effect jab aap mouse button ke kareeb le kar jayenge */
-        .arc-reactor-btn:hover {
-            transform: scale(1.08);
-            filter: drop-shadow(0 0 35px #00d2ff) brightness(1.2);
+        /* Hover effect when pointer moves over the button */
+        .arc-reactor-trigger:hover {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 30px #00d2ff) brightness(1.2);
         }
 
-        /* Click effect */
-        .arc-reactor-btn:active {
-            transform: scale(0.95);
+        /* Click feedback */
+        .arc-reactor-trigger:active {
+            transform: scale(0.96);
         }
 
-        /* HUD Technical Text below the button */
-        .system-status {
-            margin-top: 30px;
-            color: #00d2ff;
-            font-size: 0.9rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-            animation: text-blink 2s infinite;
-        }
-
-        /* Animations */
-        @keyframes reactor-pulse {
+        @keyframes corePulse {
             0% {
-                filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)) brightness(1);
+                filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
             }
             50% {
-                filter: drop-shadow(0 0 30px rgba(0, 210, 255, 0.8)) brightness(1.15);
+                filter: drop-shadow(0 0 35px rgba(0, 210, 255, 0.9)) brightness(1.1);
             }
             100% {
-                filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.4)) brightness(1);
+                filter: drop-shadow(0 0 15px rgba(0, 210, 255, 0.5));
             }
-        }
-
-        @keyframes text-blink {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="hud-overlay"></div>
-
-    <video class="bg-video" autoplay loop muted playsinline>
-        <source src="From KlickPin CF 30 Luxury air fryer dinner recipes that instantly upgrade your space style or celebration without much effort for anyone who wants easy but elegant - Pin-788833690984322453.mp4" type="video/mp4">
+    <video class="hud-bg-video" autoplay loop muted playsinline>
+        <source src="From KlickPin CF 8 Minimal weekend getaway ideas that help you create a polished look with very simple and affordable details for beginners who want impressive - Pin-1109855901925923773.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <div class="core-container">
-        <button class="arc-reactor-btn" onclick="initializeSystem()" title="Click to Initialize"></button>
-        <div class="system-status" id="status-text">POWER CORE: READY TO ENGAGE</div>
+    <div class="main-interface-container">
+        <button class="arc-reactor-trigger" onclick="loadNextPage()"></button>
     </div>
 
     <script>
-        function initializeSystem() {
-            const statusText = document.getElementById('status-text');
-            statusText.innerText = "INITIALIZING GATEWAY...";
-            statusText.style.color = "#fff";
-            
-            // Yahan se agla page trigger hoga jab hum Step 2 par kaam karenge
-            console.log("Button clicked! Ready for Step 2 login page linkage.");
-            
-            // Temporary click feedback animation
-            document.querySelector('.arc-reactor-btn').style.animation = 'none';
-            document.querySelector('.arc-reactor-btn').style.filter = 'drop-shadow(0 0 50px #fff) brightness(1.5)';
+        function loadNextPage() {
+            // Abhi yeh console par feedback dega. 
+            // Jab aap agla design aur name denge, toh hum yahan redirect logic lagayenge.
+            console.log("Core Activated. Triggering Step 2.");
         }
     </script>
 
